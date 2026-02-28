@@ -1,0 +1,66 @@
+# ==========================================
+# SAGA PLATFORM - STRICT GITIGNORE
+# ==========================================
+
+# 🤖 Agentes e LLM Tools (Strict Block)
+.agent/
+.agent/**/*
+.claude/
+.claude/**/*
+.gemini/
+.gemini/**/*
+.ai/
+
+# 🔐 Credenciais e Env Vars (Strict Block)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+credentials.json
+secret*.json
+
+# 🗄️ Backups gerados no ambiente
+SAGA-Project-bkp*/
+SAGA-Project_bkp*/
+*-bkp*/
+*-backup*/
+*.bak
+*.tmp
+
+# 📦 Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+
+# 🐍 Python / Scanners
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+.pytest_cache/
+coverage/
+.tox/
+
+# 💻 OS e IDEs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+.fleet/
+
+# 🛡️ Diretórios específicos de execução SAGA
+scanner_workspace/
+temp/
+logs/
+*.log

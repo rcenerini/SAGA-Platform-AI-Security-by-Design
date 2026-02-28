@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    background-color: #0A1628;
+    color: white;
+    font-family: 'Inter', system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0A1628;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #003087;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #009CDE;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-saga-blue text-white font-semibold rounded-lg transition-all duration-200 hover:bg-saga-accent hover:shadow-saga-glow hover:scale-105 active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-saga-blue/50 text-saga-blue font-semibold rounded-lg transition-all duration-200 hover:border-saga-accent hover:text-saga-accent hover:bg-saga-blue/10;
+  }
+  .module-card {
+    @apply bg-saga-surface border border-saga-navy/40 rounded-2xl p-6 transition-all duration-300 hover:border-saga-blue/60 hover:shadow-saga-glow-hover hover:-translate-y-1;
+  }
+  .badge-active {
+    @apply inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold bg-green-500/20 text-green-400 border border-green-500/30 rounded-full;
+  }
+  .badge-soon {
+    @apply inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-full;
+  }
+  .section-title {
+    @apply text-3xl font-bold text-white mb-2;
+  }
+  .section-subtitle {
+    @apply text-saga-blue/80 text-lg;
+  }
+}
