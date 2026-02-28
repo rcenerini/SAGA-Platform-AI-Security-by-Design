@@ -2,28 +2,29 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Security-AI%20Platform-00AEEF?style=for-the-badge&logo=shield" />
-  <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Módulos%20Ativos-2-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Ativo-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Módulos%20Ativos-3-green?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
 </p>
 
 <h2 align="center">Sistema de Análise e Gerenciamento de Ameaças de IA</h2>
 
 <p align="center">
-  Plataforma corporativa unificada de governança e segurança de Inteligência Artificial,
-  atuando de forma preventiva nas esteiras CI/CD e mapeando Shadow AIs não homologadas.
+  Plataforma corporativa unificada de governança, segurança e hardening de Inteligência Artificial.
+  Atua de forma preventiva nas esteiras CI/CD bloqueando infraestrutura insegura e mapeando Shadow AIs não homologadas.
 </p>
 
 ---
 
 ## 🎯 Visão Geral
 
-O **SAGA Platform** é um portal unificado que agrega ferramentas de segurança especializadas em IA, permitindo que times de Arquitetura de Cibersegurança:
+O **SAGA Platform** é um portal construído sob o princípio Security by Design, agregando ferramentas de segurança especializadas em IA. Ele permite que profissionais de Cibersegurança e DevSecOps:
 
-- **Detectem** uso não autorizado de LLMs e frameworks de IA nos repositórios da organização
-- **Bloqueiem** commits com Shadow AI diretamente nas esteiras CI/CD (Shift-Left)
-- **Monitorem** conformidade com o framework AI-DSRM (12 controles)
-- **Escalem** facilmente com novos módulos de segurança
+- **Detectem** uso não autorizado de LLMs e frameworks de IA nos repositórios.
+- **Validem** IaC (Terraform) contra as políticas do NIST AI RMF usando OPA (Open Policy Agent).
+- **Bloqueiem** commits e infraestrutura insegura diretamente nas esteiras CI/CD (Shift-Left).
+- **Monitorem** conformidade contínua com frameworks como o AI-DSRM (12 controles).
+- **Remediem** proativamente através de Playbooks Ansible automatizados (Golden Images).
 
 ---
 
@@ -71,6 +72,22 @@ O **SAGA Platform** é um portal unificado que agrega ferramentas de segurança 
 11. Code scanning default habilitado
 12. Revisão de código obrigatória (Pull Request)
 
+### 3. 🛡️ IA Hardening Guide
+> Valida infraestrutura como código (IaC) e fornece automação baseada no NIST AI RMF e CIS Benchmarks.
+
+| Componente | Tecnologia | Porta |
+|---|---|---|
+| Backend | Node.js / Fastify | 6000 |
+| Frontend | React / Vite / Tailwind v4 | 3002 |
+| Policy Engine | OPA / Rego | 8183 |
+
+**Capacidades:**
+- Interceptação de CI/CD via Webhooks (Payload Terraform/JSON).
+- Validação granular de serviços em nuvem (Ex: AWS Bedrock, GCP Vortex).
+- Políticas Rego (OPA) avaliando Minimum Privilege (IAM Roles).
+- Geração automática e provisionamento de Playbooks Ansible para remediação.
+- Dashboard corporativo destacando Violações e Ações requeridas.
+
 ---
 
 ## 🗺️ Roadmap — Próximos Módulos
@@ -79,8 +96,7 @@ O **SAGA Platform** é um portal unificado que agrega ferramentas de segurança 
 |---|---|---|
 | 🎯 Threat Modeling | STRIDE/PASTA AI-Aware para sistemas LLM | Planejado |
 | ☁️ Cloud Security Posture | Análise de postura AWS/Azure/GCP para AI workloads | Planejado |
-| 🔧 Hardening Guide | Automação de hardening baseado em NIST AI RMF | Planejado |
-| 🔑 Secrets Auditor | Detecção de API keys de LLMs expostas | Planejado |
+|  Secrets Auditor | Detecção de API keys de LLMs expostas | Planejado |
 | 📦 SBOM for AI | Software Bill of Materials para dependências AI/ML | Planejado |
 | 🔀 Pipeline Security | Análise de segurança de pipelines ML | Planejado |
 
@@ -117,8 +133,10 @@ docker compose up -d --build
 | 🏠 **SAGA Portal** | http://localhost:3000 | Landing page unificada |
 | 🔍 **Shadow AI Scanner** | http://localhost:5173 | Dashboard de auditoria |
 | 📋 **AI-DSRM Dashboard** | http://localhost:3001 | Dashboard de conformidade |
+| 🛡️ **IA Hardening Guide** | http://localhost:3002 | Dashboard Cloud Hardening |
 | ⚙️ **Shadow AI API** | http://localhost:8000/docs | Swagger/OpenAPI |
 | ⚙️ **AI-DSRM API** | http://localhost:4000/docs | Swagger/OpenAPI |
+| ⚙️ **Hardening API** | http://localhost:6000 | Fastify Endpoints |
 | 🗄️ **MinIO Console** | http://localhost:9001 | admin / minioadmin |
 
 ### Subir apenas o Portal
@@ -161,6 +179,11 @@ SAGA Platform
     ├── dsrm-postgres (PostgreSQL 16)
     ├── dsrm-minio (MinIO S3)
     └── dsrm-mock-scanner (Scanner Mock)
+    
+└── IA-Hardening-Guide ──────────────────────────────── :3002 / :6000 / :8183
+    ├── hardening-frontend (React/Vite/Tailwind V4)
+    ├── hardening-backend (Node.js/Fastify)
+    └── hardening-opa (Open Policy Agent)
 ```
 
 ### Princípios de Design
@@ -176,18 +199,14 @@ SAGA Platform
 
 ```
 SAGA-Project/                  ← Este repositório
-├── portal/                    ← Portal unificado (novo)
-│   ├── src/
-│   │   ├── components/       ← Navbar, HeroSection, ModuleCard, Footer
-│   │   └── pages/            ← Landing page
-│   ├── Dockerfile
-│   └── package.json
+├── portal/                    ← Portal unificado (React)
 ├── docker-compose.yml         ← Orquestra todos os serviços
-├── .env.example               ← Template de variáveis de ambiente
+├── .env.example               ← Template de variáveis (Cofre)
 └── README.md                  ← Este arquivo
 
 ../Get-Githubreposoitory-IA/   ← Módulo Shadow AI Scanner
 ../IA-Security-scan-github/    ← Módulo AI-DSRM Compliance
+../IA-Hardening-Guide/         ← Módulo IaC/OPA Hardening
 ```
 
 ---
@@ -203,6 +222,3 @@ Para ambientes de produção:
 
 ---
 
-## 👥 Time de Arquitetura de Cibersegurança
-
-Desenvolvido e mantido pelo time de Arquitetura de Cibersegurança.
